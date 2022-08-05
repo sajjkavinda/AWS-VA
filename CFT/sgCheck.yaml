@@ -1,12 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "Check security groups"
-
-Parammeters: 
-  port:
-    Description: port number
-    type: Number
-    default: 22
-
-
-Resources:
   
+# Resources:
+#   SecGroups:
+#     Type: AWS::EC2::SecurityGroups
+#     DeletionPolicy: Reatain
+#     Properties:
+
+Outputs:
+  SecurityGroupID:
+    Description: Security Group ID
+    Value: Security group ID
+    Export:
+      Name: AWS::EC2::SecurityGroups
