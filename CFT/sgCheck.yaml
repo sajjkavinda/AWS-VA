@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: "Check security groups"
-
+  
 # Resources:
 #   SecGroups:
 #     Type: AWS::EC2::SecurityGroups

@@ -1,0 +1,20 @@
+{
+    "source": [
+        "aws.ec2"
+    ],
+    "detail-type": [
+        "Track open permissions in Security Groups"
+    ],
+    "detail": {
+        "eventSource": [
+            "ec2.amazonaws.com"
+        ],
+        "eventName": [
+            "AuthorizeSecurityGroupEgress",
+            "AuthorizeSecurityGroupIngress",
+            "DescribeSecurityGroups",
+            "RevokeSecurityGroupIngress",
+            "CreateSecurityGroup"
+        ]
+    }
+}
