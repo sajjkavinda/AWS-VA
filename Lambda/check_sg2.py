@@ -2,7 +2,7 @@ import boto3
 from botocore.vendored import requests
 import json
 Client = boto3.resource('ec2')
-client = boto3.client('ec2', region_name='eu-central-1')
+client = boto3.client('ec2', region_name='us-east-1')
 def lambda_handler(event, context):
     count = 0
     sgs=client.describe_security_groups()["SecurityGroups"]
