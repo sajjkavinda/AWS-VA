@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Deploy Lambda function from S3 bucket"
+
+Resources:
+  SG-VA-Lambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "SGVALambda"
+
+      Code: 
+        S3Bucket: "checksg-lambda"
+        S3Key: "function.zip"
+
+      Description: "Run Lambda Function"
+      Handler: "function.lambda.handler"
+      Role: "arn:aws:iam::464176945335:role/lambda-fullaccess-role"
+      Runtime: "python3.7"
+      Timeout: 200
