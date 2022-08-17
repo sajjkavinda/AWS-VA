@@ -1,0 +1,15 @@
+2022-08-15 12:57:29,201 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-15 12:57:29,322 - custodian.output - ERROR - Error while executing policy
+Traceback (most recent call last):
+  File "/home/sajana/custodian/lib/python3.10/site-packages/c7n/policy.py", line 527, in provision
+    return manager.publish(
+  File "/home/sajana/custodian/lib/python3.10/site-packages/c7n/mu.py", line 387, in publish
+    result, changed = self._create_or_update(
+  File "/home/sajana/custodian/lib/python3.10/site-packages/c7n/mu.py", line 458, in _create_or_update
+    assert role, "Lambda function role must be specified"
+AssertionError: Lambda function role must be specified
+2022-08-15 13:04:03,108 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-15 13:04:04,619 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-high-risk-security-groups-remediate
+2022-08-15 13:07:36,329 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-15 13:11:38,423 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-15 13:17:10,552 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
