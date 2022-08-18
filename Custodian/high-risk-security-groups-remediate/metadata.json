@@ -1,0 +1,118 @@
+{
+  "policy": {
+    "name": "high-risk-security-groups-remediate",
+    "resource": "security-group",
+    "description": "Remove any rule from a security group that allows 0.0.0.0/0 or ::/0 (IPv6) ingress\nand notify the user who added the violating rule.\n",
+    "mode": {
+      "type": "cloudtrail",
+      "role": "arn:aws:iam::464176945335:role/Custodian-sgCheck",
+      "events": [
+        {
+          "source": "ec2.amazonaws.com",
+          "event": "AuthorizeSecurityGroupIngress",
+          "ids": "responseElements.securityGroupRuleSet.items[].groupId"
+        },
+        {
+          "source": "ec2.amazonaws.com",
+          "event": "AuthorizeSecurityGroupEgress",
+          "ids": "responseElements.securityGroupRuleSet.items[].groupId"
+        },
+        {
+          "source": "ec2.amazonaws.com",
+          "event": "RevokeSecurityGroupEgress",
+          "ids": "requestParameters.groupId"
+        },
+        {
+          "source": "ec2.amazonaws.com",
+          "event": "RevokeSecurityGroupIngress",
+          "ids": "requestParameters.groupId"
+        }
+      ],
+      "tags": {
+        "custodian-info": "mode=cloudtrail:version=0.9.18"
+      }
+    },
+    "filters": [
+      {
+        "or": [
+          {
+            "type": "ingress",
+            "Cidr": {
+              "value": "0.0.0.0/0"
+            }
+          },
+          {
+            "type": "ingress",
+            "CidrV6": {
+              "value": "::/0"
+            }
+          }
+        ]
+      },
+      {
+        "not": [
+          {
+            "tag:User": "Admin"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "remove-permissions",
+        "ingress": "matched"
+      }
+    ]
+  },
+  "version": "0.9.18",
+  "execution": {
+    "id": "1d5a8e7e-bd10-4d7e-86c3-4d85cf169ae8",
+    "start": 1660826013.2494643,
+    "end_time": 1660826028.560978,
+    "duration": 15.311513662338257
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [
+      "us-east-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "464176945335",
+    "assume_role": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "sg-viloation.yaml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "lambda.GetFunction": 1,
+    "lambda.CreateFunction": 1,
+    "lambda.GetFunctionConfiguration": 2,
+    "events.DescribeRule": 1,
+    "events.PutRule": 1,
+    "lambda.AddPermission": 1,
+    "events.ListTargetsByRule": 1,
+    "events.PutTargets": 1
+  },
+  "metrics": []
+}

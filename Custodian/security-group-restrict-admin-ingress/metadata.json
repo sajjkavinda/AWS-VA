@@ -1,0 +1,114 @@
+{
+  "policy": {
+    "name": "security-group-restrict-admin-ingress",
+    "resource": "aws.security-group",
+    "comment": "Remove rules allowing unrestricted ingress to ports [22, 3389]",
+    "filters": [
+      {
+        "tag:c7n_security_group_restrict_admin_ingress_exempt": "absent"
+      },
+      {
+        "type": "ingress",
+        "Cidr": {
+          "value": "0.0.0.0/0",
+          "op": "eq",
+          "value_type": "cidr"
+        }
+      },
+      {
+        "type": "ingress",
+        "CidrV6": {
+          "value": "::/0",
+          "op": "eq",
+          "value_type": "cidr"
+        }
+      }
+    ],
+    "mode": {
+      "type": "cloudtrail",
+      "role": "arn:aws:iam::464176945335:role/Custodian-sgCheck",
+      "events": [
+        {
+          "source": "ec2.amazonaws.com",
+          "event": "AuthorizeSecurityGroupIngress",
+          "ids": "requestParameters.groupId"
+        }
+      ],
+      "tags": {
+        "custodian-info": "mode=cloudtrail:version=0.9.18"
+      }
+    },
+    "actions": [
+      {
+        "type": "remove-permissions",
+        "ingress": "matched"
+      },
+      {
+        "type": "notify",
+        "action_desc": "Ingress to ports have been removed.",
+        "cc": [
+          "warning"
+        ],
+        "to": [
+          "sa"
+        ],
+        "transport": {
+          "type": "sqs",
+          "queue": "c7nMessageQueue"
+        },
+        "violation_desc": "AWS security group allowed unrestricted access to ports.\nOffending rules were removed."
+      }
+    ]
+  },
+  "version": "0.9.18",
+  "execution": {
+    "id": "50c51ed6-3ee6-42bd-adae-27e94cc1c62f",
+    "start": 1660811538.2533672,
+    "end_time": 1660811552.415295,
+    "duration": 14.161927700042725
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [
+      "us-east-1"
+    ],
+    "cache": "~/.cache/cloud-custodian.cache",
+    "profile": null,
+    "account_id": "464176945335",
+    "assume_role": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": null,
+    "metrics_enabled": null,
+    "metrics": null,
+    "output_dir": ".",
+    "cache_period": 15,
+    "dryrun": false,
+    "authorization_file": null,
+    "subparser": "run",
+    "config": null,
+    "configs": [
+      "sg-remediate.yaml"
+    ],
+    "policy_filters": [],
+    "resource_types": [],
+    "verbose": null,
+    "quiet": null,
+    "debug": false,
+    "skip_validation": false,
+    "command": "c7n.commands.run",
+    "vars": null
+  },
+  "sys-stats": {},
+  "api-stats": {
+    "lambda.GetFunction": 1,
+    "lambda.CreateFunction": 1,
+    "lambda.GetFunctionConfiguration": 2,
+    "events.DescribeRule": 1,
+    "events.PutRule": 1,
+    "lambda.AddPermission": 1,
+    "events.ListTargetsByRule": 1,
+    "events.PutTargets": 1
+  },
+  "metrics": []
+}

@@ -1,0 +1,12 @@
+2022-08-18 14:00:58,357 - custodian.policy - INFO - Provisioning policy lambda: security-group-restrict-admin-ingress region: us-east-1
+2022-08-18 14:00:58,475 - custodian.output - ERROR - Error while executing policy
+Traceback (most recent call last):
+  File "/home/sajana/custodian/lib/python3.10/site-packages/c7n/policy.py", line 527, in provision
+    return manager.publish(
+  File "/home/sajana/custodian/lib/python3.10/site-packages/c7n/mu.py", line 387, in publish
+    result, changed = self._create_or_update(
+  File "/home/sajana/custodian/lib/python3.10/site-packages/c7n/mu.py", line 458, in _create_or_update
+    assert role, "Lambda function role must be specified"
+AssertionError: Lambda function role must be specified
+2022-08-18 14:02:18,260 - custodian.policy - INFO - Provisioning policy lambda: security-group-restrict-admin-ingress region: us-east-1
+2022-08-18 14:02:19,754 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-security-group-restrict-admin-ingress

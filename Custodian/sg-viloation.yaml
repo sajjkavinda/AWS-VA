@@ -28,30 +28,9 @@ policies:
             - type: ingress
               CidrV6:
                 value: "::/0"
-      - not: 
-            - resource: iam-user
-              filters:
-                - type: policy
-                  key: PolicyName
-                  value: AdministratorAccess
+      - not:
+            - tag:User: "Admin"
     actions:
         - type: remove-permissions
           ingress: matched
-        - type: notify
-          template: default.html
-          priority_header: 1
-          subject: "Open Security Group Rule Created-[custodian {{ account }} - {{ region }}]"
-          violation_desc: "Security Group(s) Which Had Rules Open To The World:"
-          action_desc: |
-              "Actions Taken:  The Violating Security Group Rule Has Been Removed As It Typically
-              Allows Direct Incoming Public Internet Traffic Access To Your Resource Which Violates Our
-              Company's Cloud Security Policy.  Please Refer To Our Company's Cloud Security Best
-              Practices Documentation.  If This Ingress Rule Is Required You May Contact The Security
-              Team To Request An Exception."
-          to:
-              - sajana.kirindeniya@madmobile.com
-              - event-owner
-          transport:
-              type: sqs
-              queue: https://sqs.us-east-1.amazonaws.com/464176945335/sg-check
-              region: us-east-1
+        

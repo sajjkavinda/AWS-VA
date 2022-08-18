@@ -1,0 +1,8 @@
+2022-08-18 17:07:44,743 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-18 17:07:46,199 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-high-risk-security-groups-remediate
+2022-08-18 17:18:36,240 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-18 17:18:37,730 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-high-risk-security-groups-remediate
+2022-08-18 17:24:57,787 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-18 17:24:59,256 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-high-risk-security-groups-remediate
+2022-08-18 18:03:33,255 - custodian.policy - INFO - Provisioning policy lambda: high-risk-security-groups-remediate region: us-east-1
+2022-08-18 18:03:34,810 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-high-risk-security-groups-remediate
