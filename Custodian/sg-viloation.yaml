@@ -29,8 +29,8 @@ policies:
               CidrV6:
                 value: "::/0"
       - not:
-            - tag:User: "Admin"
+            - "tag:User": Admin
+
     actions:
         - type: remove-permissions
           ingress: matched
-        

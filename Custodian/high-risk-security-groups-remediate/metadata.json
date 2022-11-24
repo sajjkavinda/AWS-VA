@@ -52,7 +52,7 @@
       {
         "not": [
           {
-            "tag:User": "Admin"
+            "source:aws:iam-group:Admin": "present"
           }
         ]
       }
@@ -66,10 +66,10 @@
   },
   "version": "0.9.18",
   "execution": {
-    "id": "1d5a8e7e-bd10-4d7e-86c3-4d85cf169ae8",
-    "start": 1660826013.2494643,
-    "end_time": 1660826028.560978,
-    "duration": 15.311513662338257
+    "id": "af89293a-b5bb-4093-b031-c16c48bc7aa3",
+    "start": 1661503610.0004642,
+    "end_time": 1661503622.8017647,
+    "duration": 12.801300525665283
   },
   "config": {
     "region": "us-east-1",
