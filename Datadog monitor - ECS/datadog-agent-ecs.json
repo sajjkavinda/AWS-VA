@@ -30,7 +30,7 @@
         "environment": [
           {
             "name": "DD_API_KEY",
-            "value": "eb22cc570c06098934386ecccc0ab6c4"
+            "value": "KEY"
           },
           {
             "name": "DD_SITE",
