@@ -1,0 +1,10 @@
+- type: notify
+        action_desc: "Ingress to ports have been removed."
+        cc: ["warning"]
+        to: ["sajana.kirindeniya@madmobile.com"]
+        transport:
+          type: sqs
+          queue: c7nMessageQueue
+        violation_desc: |
+          AWS security group allowed unrestricted access to ports.
+          Offending rules were removed.

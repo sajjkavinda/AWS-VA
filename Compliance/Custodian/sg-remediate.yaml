@@ -1,0 +1,22 @@
+policies:
+  - name: security-group-restrict-admin-ingress
+    resource: security-group
+    comment: "Remove rules allowing unrestricted ingress"
+    filters:
+      - "tag:c7n_security_group_restrict_admin_ingress_exempt": absent
+      - type: ingress
+        Cidr:
+          value: 0.0.0.0/0
+      - type: ingress
+        CidrV6:
+          value: "::/0"
+    mode:
+      type: cloudtrail
+      role: Custodian-sgCheck
+      events:
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupIngress
+          ids: "requestParameters.groupId"
+    actions:
+      - type: remove-permissions
+        ingress: matched

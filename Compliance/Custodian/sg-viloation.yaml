@@ -1,0 +1,36 @@
+policies:
+  - name: high-risk-security-groups-remediate
+    resource: security-group
+    description: |
+      Remove any rule from a security group that allows 0.0.0.0/0 or ::/0 (IPv6) ingress
+      and notify the user who added the violating rule.
+    mode:
+        type: cloudtrail
+        role: Custodian-sgCheck
+        events:
+          - source: ec2.amazonaws.com
+            event: AuthorizeSecurityGroupIngress
+            ids: "responseElements.securityGroupRuleSet.items[].groupId"
+          - source: ec2.amazonaws.com
+            event: AuthorizeSecurityGroupEgress
+            ids: "responseElements.securityGroupRuleSet.items[].groupId"
+          - source: ec2.amazonaws.com
+            event: RevokeSecurityGroupEgress
+            ids: "requestParameters.groupId"
+          - source: ec2.amazonaws.com
+            event: RevokeSecurityGroupIngress
+            ids: "requestParameters.groupId"
+    filters:
+      - or:
+            - type: ingress
+              Cidr:
+                value: "0.0.0.0/0"
+            - type: ingress
+              CidrV6:
+                value: "::/0"
+      - not:
+            - "tag:User": Admin
+
+    actions:
+        - type: remove-permissions
+          ingress: matched
